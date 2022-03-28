@@ -54,7 +54,8 @@ public class BudgetCategoriesDAO
         ObservableList<BudgetCategory> list = FXCollections.observableArrayList();
         
         try {
-            PreparedStatement pst = conn.prepareStatement("Select * from budgetcategories");
+            String sqlStatement = "Select * from budgetcategories";
+            PreparedStatement pst = conn.prepareStatement(sqlStatement);
             ResultSet rs = pst.executeQuery();
             
             while (rs.next())
@@ -75,10 +76,9 @@ public class BudgetCategoriesDAO
         Double newThresh = newThreshLimit;
         
         try {
-            Statement stmt = con.createStatement();
-                    //prepareStatement("INSERT INTO budgetcategories (CategoryName, CategoryAmount, ThresholdLimit) values ('"+ newCatName + "', " + newCatAmt + ", " + newThresh + ");");
             String insert = "INSERT INTO budgetcategories (CategoryName, CategoryAmount, ThresholdLimit) values ('"+ newCatName + "', " + newCatAmt + ", " + newThresh + ");";
-            stmt.executeUpdate(insert);
+            PreparedStatement pst = con.prepareStatement(insert);
+            pst.executeQuery();
             
             
         } catch (SQLException ex) {
