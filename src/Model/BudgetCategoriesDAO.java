@@ -4,7 +4,6 @@ package Model;
 import static Model.dbConnection.connectDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,8 +21,9 @@ public class BudgetCategoriesDAO
     {        
         PreparedStatement pst;
         ResultSet rs;
+        String sqlStatement = "Select * from budgetcategories";
         
-        pst = con.prepareStatement("Select * from budgetcategories");
+        pst = con.prepareStatement(sqlStatement);
         rs = pst.executeQuery();
         return rs;
     }
@@ -33,8 +33,9 @@ public class BudgetCategoriesDAO
         ArrayList<BudgetCategory> categories = new ArrayList<>();
         PreparedStatement pst;
         ResultSet rs;
+        String sqlStatement = "Select * from budgetcategories";
         
-        pst = con.prepareStatement("Select * from budgetcategories");
+        pst = con.prepareStatement(sqlStatement);
         rs = pst.executeQuery();
                     
         while(rs.next())
@@ -76,8 +77,8 @@ public class BudgetCategoriesDAO
         Double newThresh = newThreshLimit;
         
         try {
-            String insert = "INSERT INTO budgetcategories (CategoryName, CategoryAmount, ThresholdLimit) values ('"+ newCatName + "', " + newCatAmt + ", " + newThresh + ");";
-            PreparedStatement pst = con.prepareStatement(insert);
+            String sqlStatement = "INSERT INTO budgetcategories (CategoryName, CategoryAmount, ThresholdLimit) values ('"+ newCatName + "', " + newCatAmt + ", " + newThresh + ");";
+            PreparedStatement pst = con.prepareStatement(sqlStatement);
             pst.executeQuery();
             
             
