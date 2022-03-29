@@ -1,6 +1,5 @@
 package View;
 
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,5 +34,9 @@ public class LoginClass extends Application
     {
         launch(args);
     }
+    
+    //Login Info
+    //Username: Laura  Password: Apple
+    //Username: Ryan   Password: Orange
     
 }
