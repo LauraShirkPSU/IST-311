@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javax.swing.JOptionPane;
 
 
 public class BudgetCategoriesDAO
@@ -79,8 +80,27 @@ public class BudgetCategoriesDAO
         try {
             String sqlStatement = "INSERT INTO budgetcategories (CategoryName, CategoryAmount, ThresholdLimit) values ('"+ newCatName + "', " + newCatAmt + ", " + newThresh + ");";
             PreparedStatement pst = con.prepareStatement(sqlStatement);
-            pst.executeQuery();
+            int rowsUpdated = 0;
+            try {
+                rowsUpdated = pst.executeUpdate();
+            }
+            catch (SQLException ex) {  
+                if(ex.toString().contains("SQLIntegrityConstraintViolationException: Duplicate entry")){
+                    rowsUpdated = -1;
+                }      
+            }    
             
+            if (rowsUpdated == 0)
+            {
+                JOptionPane.showMessageDialog(null, "Please Try Again");
+            }
+            else if (rowsUpdated == -1) {
+                JOptionPane.showMessageDialog(null, newCatName + " already exists.  Try a different name.");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Record Successfully Added");                
+            }
             
         } catch (SQLException ex) {
             Logger.getLogger(BudgetCategoriesDAO.class.getName()).log(Level.SEVERE, null, ex);
