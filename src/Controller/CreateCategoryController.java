@@ -1,7 +1,7 @@
 package Controller;
 
-
 import Model.BudgetCategoriesDAO;
+import Model.fieldValidation;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 
 public class CreateCategoryController implements Initializable
 {
-
     @FXML
     private TextField newCategoryName;
     @FXML
@@ -34,6 +33,8 @@ public class CreateCategoryController implements Initializable
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -47,14 +48,28 @@ public class CreateCategoryController implements Initializable
         String newCatName = newCategoryName.getText();
         Double newCatAmt = Double.parseDouble(newCategoryAmt.getText());
         Double newThresh = Double.parseDouble(newThreshLimit.getText());
+                        
+        BudgetCategoriesDAO dao = new BudgetCategoriesDAO();        
         
-        BudgetCategoriesDAO dao = new BudgetCategoriesDAO();
+        switch (dao.addNewBudgetCategory(newCatName, newCatAmt, newThresh)) 
+        {
+            case 0 -> JOptionPane.showMessageDialog(null, "Please Try Again");
+            case -1 -> JOptionPane.showMessageDialog(null, "'" + newCatName + "' already exists.  Try a different name.");
+            default -> {
+                JOptionPane.showMessageDialog(null, "Record Successfully Added");  
+                clearFields();
+            }
+        }
         
-        dao.addNewBudgetCategory(newCatName, newCatAmt, newThresh);        
     }
 
     @FXML
     private void clearChanges(ActionEvent event)
+    {   
+        clearFields();
+    }
+    
+    private void clearFields()
     {   
         newCategoryName.setText("");
         newCategoryAmt.setText("");
