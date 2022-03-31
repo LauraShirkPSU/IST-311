@@ -31,7 +31,7 @@ public class SceneController
         Parent root = FXMLLoader.load(getClass().getResource("..\\View\\DashboardFXML.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
-        stage.setScene(scene);
+        stage.setScene(scene);              
         stage.show();
     }
     
@@ -51,5 +51,23 @@ public class SceneController
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();    
+    }
+    
+    public void switchToUpdateCategoryScene(ActionEvent event) throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("..\\View\\UpdateCategoryFXML.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();  
+    }
+    
+    public void switchToManageAccountScene(ActionEvent event) throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("..\\View\\ManageAccountFXML.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();  
     }
 }
