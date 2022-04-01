@@ -16,7 +16,12 @@ import javax.swing.JOptionPane;
 
 public class BudgetCategoriesDAO
 {
-    private Connection con = dbConnection.connectDB();
+    private final Connection con;
+
+    public BudgetCategoriesDAO()
+    {
+        this.con = dbConnection.connectDB();
+    }
     
     public ResultSet getBudgetCategoriesResultSet() throws SQLException
     {        
@@ -26,6 +31,7 @@ public class BudgetCategoriesDAO
         
         pst = con.prepareStatement(sqlStatement);
         rs = pst.executeQuery();
+        //rs.close();
         return rs;
     }
     
@@ -71,16 +77,17 @@ public class BudgetCategoriesDAO
         return list;
     } 
     
-    public void addNewBudgetCategory(String newName, Double newAmt, Double newThreshLimit)
+    public int addNewBudgetCategory(String newName, Double newAmt, Double newThreshLimit)
     {
         String newCatName = newName;
         Double newCatAmt = newAmt;
         Double newThresh = newThreshLimit;
+        int rowsUpdated = 0;
         
         try {
             String sqlStatement = "INSERT INTO budgetcategories (CategoryName, CategoryAmount, ThresholdLimit) values ('"+ newCatName + "', " + newCatAmt + ", " + newThresh + ");";
             PreparedStatement pst = con.prepareStatement(sqlStatement);
-            int rowsUpdated = 0;
+            //int rowsUpdated = 0;
             try {
                 rowsUpdated = pst.executeUpdate();
             }
@@ -88,23 +95,37 @@ public class BudgetCategoriesDAO
                 if(ex.toString().contains("SQLIntegrityConstraintViolationException: Duplicate entry")){
                     rowsUpdated = -1;
                 }      
-            }    
-            
-            if (rowsUpdated == 0)
+            }              
+ 
+        } catch (SQLException ex) {
+            Logger.getLogger(BudgetCategoriesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rowsUpdated;
+    }
+    
+    public int updateBudgetCategory(String newName, Double newAmt, Double newThreshLimit)
+    {
+        String CatName = newName;
+        Double newCatAmt = newAmt;
+        Double newThresh = newThreshLimit;
+        int rowsUpdated = 0;
+        
+        try
+        {
+            String sqlStatement = "update budgetcategories set CategoryAmount = " + newCatAmt + ", ThresholdLimit = " + newThresh + " where CategoryName = '" + CatName + "';";
+            PreparedStatement pst = con.prepareStatement(sqlStatement);
+            try {
+                rowsUpdated = pst.executeUpdate();
+            }
+            catch(SQLException ex)
             {
-                JOptionPane.showMessageDialog(null, "Please Try Again");
+                rowsUpdated = -1;
             }
-            else if (rowsUpdated == -1) {
-                JOptionPane.showMessageDialog(null, newCatName + " already exists.  Try a different name.");
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "Record Successfully Added");                
-            }
-            
         } catch (SQLException ex) {
             Logger.getLogger(BudgetCategoriesDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        return rowsUpdated;
     }
+
 }
