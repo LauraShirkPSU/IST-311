@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -37,6 +36,18 @@ public class ExpenseDAO
         
         pst = con.prepareStatement(sqlStatement);
         rs = pst.executeQuery();
+        if(rs != null)
+            {
+                rs.close();
+            }
+            if(pst != null)
+            {
+                pst.close();
+            }
+            else
+            {
+                con.close();
+            }
         return rs;
     }
     
@@ -57,48 +68,74 @@ public class ExpenseDAO
             expense.setTransactionAmount(rs.getDouble("TransactionAmount"));
             expense.setExpenseCategory(rs.getString("ExpenseCategory"));
             expenses.add(expense);
-        }         
+        }    
+        con.close();
+            
     return expenses;    
     }
     
-    public static ObservableList<Expense> getExpenses()
+    public static ObservableList<Expense> getExpenses() throws SQLException
     {
-        Connection conn = connectDB();
+        Connection con = connectDB();
         ObservableList<Expense> list = FXCollections.observableArrayList();        
         
-        try {
+        try 
+        {
             String sqlStatement = "Select * from Expenses";
-            PreparedStatement pst = conn.prepareStatement(sqlStatement);
+            PreparedStatement pst = con.prepareStatement(sqlStatement);
             ResultSet rs = pst.executeQuery();
             
             while (rs.next())
             {
                 list.add(new Expense(rs.getDate("TransactionDate"), rs.getDouble("TransactionAmount"), rs.getString("ExpenseCategory")));
-            }                   
-            
+            }
         } catch (SQLException ex) {
             Logger.getLogger(dbConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
+        con.close();
         return list;
     } 
     
-    public int addExpenseEntry(String newDate, Double newAmt, String newEntity)
+    public int addExpenseEntry(String newDate, Double newAmt, String newEntity) throws SQLException
     {
         String newExpenseDate = newDate;
         Double newExpenseAmt = newAmt;
         String newExpenseEntity = newEntity;
         int rowsUpdated = 0;
         
-        try {
+        try 
+        {
             String sqlStatement = "INSERT INTO Expenses (TransactionDate, TransactionAmount, ExpenseCategory) values ('"+ newExpenseDate + "', " + newExpenseAmt + ", '" + newExpenseEntity + "');";
             PreparedStatement pst = con.prepareStatement(sqlStatement);
                         
             rowsUpdated = pst.executeUpdate();
             } 
-        catch (SQLException ex) {
+        catch (SQLException ex) 
+        {
             Logger.getLogger(BudgetCategoriesDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        con.close();
         return rowsUpdated;
     }
     
+    public Double sumExpenses() throws SQLException
+    {
+        Double totalExpense = 0.00;
+        
+        try {
+            String sqlStatement = "Select SUM(TransactionAmount) as ExpenseSum from Expenses;";
+            PreparedStatement pst = con.prepareStatement(sqlStatement);
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next())
+            {
+                totalExpense = rs.getDouble("ExpenseSum");
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(BudgetCategoriesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return totalExpense;
+    }
 }
