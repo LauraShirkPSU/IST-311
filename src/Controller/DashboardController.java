@@ -1,7 +1,12 @@
 package Controller;
 
+import Model.Authentication;
 import Model.ExpenseDAO;
 import Model.IncomeDAO;
+import Model.Session;
+import Model.SessionDAO;
+import Model.User;
+import Model.UserDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -38,27 +43,58 @@ public class DashboardController implements Initializable
     private Label label_TotalIncome;
     @FXML
     private Label label_AvailableToSpend;
+    @FXML
+    private Label label_Welcome;
+    
+    private User currentUser;
+    private UserDAO userDAO;
+    private Session session;
+    private SessionDAO sessionDAO;
+    private Double availableToSpend = 0.00;
+    @FXML
+    private Label label_total_Income_value;
+    @FXML
+    private Label label_total_Expense_value;
+    @FXML
+    private Label label_available_to_spend_value;
      
  
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        Double availableToSpend = 0.00;
+        sessionDAO = new SessionDAO();
+        currentUser = new User();
+        userDAO = new UserDAO();
+        
+        try
+        {
+            session = sessionDAO.getSession();
+            String currentUsername = session.GetUsername();
+            currentUser = userDAO.getUserObject(currentUsername);
+        }
+         catch (SQLException ex) {
+            Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        label_Welcome.setText("Welcome, " + currentUser.getNickname() + "!");
+       
         try {
             IncomeDAO incObject = new IncomeDAO();
-            label_TotalIncome.setText("Total Income to Date:         " + incObject.sumIncome().toString());
+            label_TotalIncome.setText("Total Income to Date:");
+            label_total_Income_value.setText(incObject.sumIncome().toString());
             availableToSpend = availableToSpend + incObject.sumIncome();
         } catch (SQLException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             ExpenseDAO expObject = new ExpenseDAO();
-            label_TotalExpenses.setText("Total Expenses to Date:         " + expObject.sumExpenses().toString());
+            label_TotalExpenses.setText("Total Expenses to Date:");
+            label_total_Expense_value.setText(expObject.sumExpenses().toString());
             availableToSpend = availableToSpend - expObject.sumExpenses();
         } catch (SQLException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        label_AvailableToSpend.setText("Funds available to spend:      " + availableToSpend.toString());
+        label_AvailableToSpend.setText("Funds available to spend:");
+        label_available_to_spend_value.setText(availableToSpend.toString());
         
     }    
     
