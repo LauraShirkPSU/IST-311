@@ -152,7 +152,6 @@ public class ExpenseDAO
         try 
         {
             String sqlStatement = "Select SUM(TransactionAmount) as MonthExpense from Expenses where ExpenseCategory = '" + sumExpCategory + "' and MONTH(TransactionDate)=MONTH(curdate());";
-            System.out.println(sqlStatement);
             PreparedStatement pst = pst = con.prepareStatement(sqlStatement);
             ResultSet rs = pst.executeQuery(); 
         
