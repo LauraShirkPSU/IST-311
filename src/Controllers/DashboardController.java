@@ -1,8 +1,8 @@
-package Controller;
+package Controllers;
 
 import Model.Authentication;
-import Model.ExpenseDAO;
-import Model.IncomeDAO;
+import Model.ExpenseModel.ExpenseDAO;
+import Model.IncomeModel.IncomeDAO;
 import Model.Session;
 import Model.SessionDAO;
 import Model.User;
@@ -10,6 +10,7 @@ import Model.UserDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,6 +58,8 @@ public class DashboardController implements Initializable
     private Label label_total_Expense_value;
     @FXML
     private Label label_available_to_spend_value;
+    
+    DecimalFormat df = new DecimalFormat("#.##");
      
  
     @Override
@@ -80,7 +83,7 @@ public class DashboardController implements Initializable
         try {
             IncomeDAO incObject = new IncomeDAO();
             label_TotalIncome.setText("Total Income to Date:");
-            label_total_Income_value.setText(incObject.sumIncome().toString());
+            label_total_Income_value.setText(df.format(incObject.sumIncome()));
             availableToSpend = availableToSpend + incObject.sumIncome();
         } catch (SQLException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,13 +91,13 @@ public class DashboardController implements Initializable
         try {
             ExpenseDAO expObject = new ExpenseDAO();
             label_TotalExpenses.setText("Total Expenses to Date:");
-            label_total_Expense_value.setText(expObject.sumExpenses().toString());
+            label_total_Expense_value.setText(df.format(expObject.sumExpenses()));
             availableToSpend = availableToSpend - expObject.sumExpenses();
         } catch (SQLException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
         }
         label_AvailableToSpend.setText("Funds available to spend:");
-        label_available_to_spend_value.setText(availableToSpend.toString());
+        label_available_to_spend_value.setText(df.format(availableToSpend));
         
     }    
     

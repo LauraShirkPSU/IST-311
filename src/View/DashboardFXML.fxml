@@ -5,14 +5,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DashboardController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DashboardController">
    <children>
-      <Button fx:id="btnBudgetCategories" layoutX="14.0" layoutY="89.0" mnemonicParsing="false" onAction="#callBudgetCategories" prefHeight="25.0" prefWidth="121.0" text="Budget Categories" />
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="32.0" prefWidth="121.0" text="Welcome!">
+      <Button fx:id="btnBudgetCategories" layoutX="23.0" layoutY="81.0" mnemonicParsing="false" onAction="#callBudgetCategories" prefHeight="25.0" prefWidth="121.0" text="Budget Categories" />
+      <Label fx:id="label_Welcome" layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="574.0" style="-fx-background-color: lightgrey;">
          <font>
             <Font size="26.0" />
          </font>
       </Label>
-      <Button fx:id="btnLogout" layoutX="523.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" text="LOGOUT" />
+      <Button fx:id="btnLogout" layoutX="505.0" layoutY="21.0" mnemonicParsing="false" onAction="#logout" text="LOGOUT" />
+      <Button fx:id="btnIncome" layoutX="23.0" layoutY="129.0" mnemonicParsing="false" onAction="#manageIncome" prefHeight="25.0" prefWidth="121.0" text="Income" />
+      <Button fx:id="btnManageAcct" layoutX="23.0" layoutY="314.0" mnemonicParsing="false" onAction="#manageAccount" prefHeight="25.0" prefWidth="121.0" text="Manage Account" />
+      <Button fx:id="btnExpenses" layoutX="23.0" layoutY="175.0" mnemonicParsing="false" onAction="#manageExpense" prefHeight="25.0" prefWidth="121.0" text="Expenses" />
+      <Button fx:id="btnReports" layoutX="23.0" layoutY="220.0" mnemonicParsing="false" onAction="#manageReports" prefHeight="25.0" prefWidth="121.0" text="Reports" />
+      <Button fx:id="btnNotifications" layoutX="23.0" layoutY="267.0" mnemonicParsing="false" onAction="#manageNotifications" prefHeight="25.0" prefWidth="121.0" text="Notifications" />
+      <Label fx:id="label_TotalExpenses" layoutX="278.0" layoutY="121.0" prefHeight="17.0" prefWidth="196.0" />
+      <Label fx:id="label_TotalIncome" layoutX="278.0" layoutY="98.0" prefHeight="17.0" prefWidth="196.0" />
+      <Label fx:id="label_AvailableToSpend" layoutX="278.0" layoutY="146.0" prefHeight="17.0" prefWidth="196.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="label_total_Income_value" alignment="CENTER_RIGHT" layoutX="491.0" layoutY="98.0" prefHeight="17.0" prefWidth="92.0" />
+      <Label fx:id="label_total_Expense_value" alignment="CENTER_RIGHT" layoutX="491.0" layoutY="121.0" prefHeight="17.0" prefWidth="92.0" />
+      <Label fx:id="label_available_to_spend_value" alignment="CENTER_RIGHT" layoutX="491.0" layoutY="146.0" prefHeight="17.0" prefWidth="92.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

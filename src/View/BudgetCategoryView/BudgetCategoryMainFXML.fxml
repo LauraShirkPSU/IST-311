@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BudgetCategoriesController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BudgetCategoryControllers.BudgetCategoryController_Main">
    <children>
       <TableView fx:id="tblView" layoutX="32.0" layoutY="68.0" prefHeight="200.0" prefWidth="443.0">
          <columns>
@@ -16,12 +16,14 @@
             <TableColumn fx:id="col_ThreshLimit" prefWidth="117.0" text="ThresholdLimit" />
          </columns>
       </TableView>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="574.0" style="-fx-background-color: lightgrey;" text="Budget Categories">
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="574.0" text="Budget Categories">
          <font>
             <Font size="27.0" />
          </font>
       </Label>
       <Button fx:id="btnCreateCategory" layoutX="32.0" layoutY="289.0" mnemonicParsing="false" onAction="#createNewCategory" text="Create New Budget Category" />
       <Button fx:id="btnGoBack" layoutX="519.0" layoutY="21.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
+      <Button fx:id="btnModifyCategory" layoutX="32.0" layoutY="327.0" mnemonicParsing="false" onAction="#modifyCategory" prefHeight="25.0" prefWidth="171.0" text="Modify Budget Category" />
+      <Button fx:id="btnViewCategoryDetails" layoutX="343.0" layoutY="289.0" mnemonicParsing="false" onAction="#viewCategoryDetails" text="View Category Details" />
    </children>
 </AnchorPane>

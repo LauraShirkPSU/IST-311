@@ -2,14 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package Controller;
+package Controllers.IncomeControllers;
 
-import Model.Income;
-import Model.IncomeDAO;
+import Controllers.SceneController;
+import Model.IncomeModel.Income;
+import Model.IncomeModel.IncomeDAO;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,7 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author Laura
  */
-public class IncomeController implements Initializable
+public class IncomeController_Main implements Initializable
 {
 
     @FXML
@@ -48,19 +52,25 @@ public class IncomeController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        col_IncomeDate.setCellValueFactory(new PropertyValueFactory<Income, Date>("transactionDate"));
-        col_IncomeAmount.setCellValueFactory(new PropertyValueFactory<Income, Double>("transactionAmount"));
-        col_IncomeEntity.setCellValueFactory(new PropertyValueFactory<Income, String>("incomeEntity"));
-                
-        ObservableList<Income> catList;
-    
-        catList = IncomeDAO.getAllIncome();
-        tblView_Income.setItems(catList); 
+        try {
+            col_IncomeDate.setCellValueFactory(new PropertyValueFactory<Income, Date>("transactionDate"));
+            col_IncomeAmount.setCellValueFactory(new PropertyValueFactory<Income, Double>("transactionAmount"));
+            col_IncomeEntity.setCellValueFactory(new PropertyValueFactory<Income, String>("incomeEntity"));
+            
+            ObservableList<Income> catList;
+            
+            catList = IncomeDAO.getAllIncome(); 
+            tblView_Income.setItems(catList);
+        } catch (SQLException ex) {
+            Logger.getLogger(IncomeController_Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     @FXML
-    private void addIncome(ActionEvent event)
-    {
+    private void addIncome(ActionEvent event) throws IOException
+    {   
+        SceneController sc = new SceneController();
+        sc.switchToAddIncomeScene(event);
     }
 
     @FXML

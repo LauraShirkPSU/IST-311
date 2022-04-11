@@ -1,8 +1,9 @@
-package Controller;
+package Controllers;
 
 import Model.Authentication;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,10 +29,13 @@ public class LoginController implements Initializable
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        
         // TODO
     }    
 
@@ -44,23 +48,24 @@ public class LoginController implements Initializable
     }
 
     @FXML
-    private void login(ActionEvent event) throws IOException
+    private void login(ActionEvent event) throws IOException, SQLException
     {   
         String username = tfUsername.getText();
         String password = tfPassword.getText();
         
-        if(username.equals("") && password.equals(""))
+        if(username.equals("") || password.equals(""))
         {
-            JOptionPane.showMessageDialog(null, "Username and Password cannot be blank");
+            JOptionPane.showMessageDialog(null, "Username and Password must be populated");
         }
         else
         {            
             Authentication auth = new Authentication();
             
             if(auth.isAuthenticated(username, password) == true)
-            {
+            {   
+                JOptionPane.showMessageDialog(null, "Login Successful");
                 SceneController sc = new SceneController();
-                sc.switchToDashboardScene(event);
+                sc.switchToDashboardScene(event);               
             }
             else
             {
@@ -71,6 +76,6 @@ public class LoginController implements Initializable
             }                
         }
         
-    }
-    
+    }    
+
 }

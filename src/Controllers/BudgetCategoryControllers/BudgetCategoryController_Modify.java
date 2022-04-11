@@ -58,8 +58,7 @@ public class BudgetCategoryController_Modify implements Initializable
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
-    {
-        //FIXME
+    {        
         sessionDAO = new SessionDAO();
         currentBudgetCategory = new BudgetCategory();
         budgetCategoriesDAO = new BudgetCategoryDAO();

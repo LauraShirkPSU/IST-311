@@ -1,6 +1,5 @@
 
-package Model;
-
+package Model.BudgetCategoryModel;
 
 public class BudgetCategory
 {
@@ -49,7 +48,7 @@ public class BudgetCategory
     {
         this.ThresholdLimit = ThresholdLimit;
     }
-
+    
     @Override
     public String toString()
     {

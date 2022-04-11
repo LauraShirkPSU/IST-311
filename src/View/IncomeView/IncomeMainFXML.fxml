@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="Controllers.IncomeControllers.IncomeController_Main">
+   <children>
+      <Label layoutX="23.0" layoutY="21.0" prefHeight="17.0" prefWidth="558.0" style="-fx-background-color: lightgrey;" text="   Income">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnGoBack" layoutX="515.0" layoutY="30.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
+      <TableView fx:id="tblView_Income" layoutX="48.0" layoutY="100.0" prefHeight="200.0" prefWidth="267.0">
+        <columns>
+          <TableColumn fx:id="col_IncomeDate" prefWidth="75.0" text="Date" />
+          <TableColumn fx:id="col_IncomeAmount" prefWidth="75.0" text="Amount" />
+            <TableColumn fx:id="col_IncomeEntity" prefWidth="75.0" text="Entity" />
+        </columns>
+      </TableView>
+      <Button fx:id="btn_AddIncome" layoutX="427.0" layoutY="100.0" mnemonicParsing="false" onAction="#addIncome" text="Add Income" />
+   </children>
+</AnchorPane>

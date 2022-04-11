@@ -1,7 +1,7 @@
-package Controller;
+package Controllers.BudgetCategoryControllers;
 
-import Model.BudgetCategoriesDAO;
-import Model.fieldValidation;
+import Controllers.SceneController;
+import Model.BudgetCategoryModel.BudgetCategoryDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -14,14 +14,8 @@ import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 
 
-public class CreateCategoryController implements Initializable
+public class BudgetCategoryController_Add implements Initializable
 {
-    @FXML
-    private TextField newCategoryName;
-    @FXML
-    private TextField newCategoryAmt;
-    @FXML
-    private TextField newThreshLimit;
     @FXML
     private Button btnSaveChanges;
     @FXML
@@ -30,6 +24,12 @@ public class CreateCategoryController implements Initializable
     private Button btnCancel;
     @FXML
     private Button btnGoBack;
+    @FXML
+    private TextField tfCategoryName;
+    @FXML
+    private TextField tfCategoryAmount;
+    @FXML
+    private TextField tfThresholdLimit;
 
     /**
      * Initializes the controller class.
@@ -45,11 +45,11 @@ public class CreateCategoryController implements Initializable
     @FXML
     private void saveChanges(ActionEvent event)
     {   
-        String newCatName = newCategoryName.getText();
-        Double newCatAmt = Double.parseDouble(newCategoryAmt.getText());
-        Double newThresh = Double.parseDouble(newThreshLimit.getText());
+        String newCatName = tfCategoryName.getText();
+        Double newCatAmt = Double.parseDouble(tfCategoryAmount.getText());
+        Double newThresh = Double.parseDouble(tfThresholdLimit.getText());
                         
-        BudgetCategoriesDAO dao = new BudgetCategoriesDAO();        
+        BudgetCategoryDAO dao = new BudgetCategoryDAO();        
         
         switch (dao.addNewBudgetCategory(newCatName, newCatAmt, newThresh)) 
         {
@@ -71,17 +71,33 @@ public class CreateCategoryController implements Initializable
     
     private void clearFields()
     {   
-        newCategoryName.setText("");
-        newCategoryAmt.setText("");
-        newThreshLimit.setText("");
-        newCategoryName.requestFocus();
+        tfCategoryName.setText("");
+        tfCategoryAmount.setText("");
+        tfThresholdLimit.setText("");
+        tfCategoryName.requestFocus();
     }
 
     @FXML
     private void cancelChanges(ActionEvent event) throws IOException, SQLException
     {
-        SceneController sc = new SceneController();
-        sc.switchToBudgetCategoriesScene(event);
+        if(tfCategoryName.getText() != "" || tfCategoryAmount.getText() != "" || tfThresholdLimit.getText() != "")
+        {
+            int n = JOptionPane.showConfirmDialog(null, "If you cancel now, you will lose your changes.  Do you still want to cancel?", null, JOptionPane.YES_NO_OPTION);
+            if (n == JOptionPane.YES_OPTION)
+            {
+                SceneController sc = new SceneController();
+                sc.switchToBudgetCategoriesScene(event);
+            }
+            else if (n == JOptionPane.NO_OPTION)
+            {                
+            }
+        }
+        else
+        {
+            SceneController sc = new SceneController();
+            sc.switchToBudgetCategoriesScene(event);
+        }
+        
     }
 
     @FXML

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ExpenseControllers.ExpenseController_Add">
+   <children>
+      <Label layoutX="23.0" layoutY="26.0" prefHeight="38.0" prefWidth="549.0" style="-fx-background-color: lightgrey;" text="   Add Expense">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnGoBack" layoutX="505.0" layoutY="33.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
+      <Label layoutX="23.0" layoutY="109.0" prefHeight="28.0" prefWidth="152.0" text="Expense Date">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="23.0" layoutY="171.0" prefHeight="28.0" prefWidth="152.0" text="Expense Amount">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="23.0" layoutY="229.0" prefHeight="17.0" prefWidth="152.0" text="Budget Category">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfExpenseAmount" alignment="CENTER_RIGHT" layoutX="226.0" layoutY="173.0" promptText="\$0.00" />
+      <Button fx:id="btnSaveExpense" layoutX="323.0" layoutY="287.0" mnemonicParsing="false" onAction="#saveExpense" text="Save" />
+      <ChoiceBox fx:id="dropCatList" layoutX="226.0" layoutY="231.0" prefWidth="150.0" />
+      <DatePicker fx:id="dpExpenseDate" layoutX="226.0" layoutY="111.0" />
+      <Label id="lblVal_ExpenseDate" fx:id="lblVal_ExpenseDate" layoutX="414.0" layoutY="115.0" prefHeight="17.0" prefWidth="134.0" text="Label" textFill="#b20000" />
+      <Label id="lblVal_ExpenseAmount" fx:id="lblVal_ExpenseAmount" layoutX="414.0" layoutY="177.0" prefHeight="17.0" prefWidth="134.0" text="Label" textFill="#b20000" />
+      <Label id="lblVal_BudgetCategory" fx:id="lblVal_BudgetCategory" layoutX="414.0" layoutY="235.0" prefHeight="17.0" prefWidth="134.0" text="Label" textFill="#b20000" />
+   </children>
+</AnchorPane>

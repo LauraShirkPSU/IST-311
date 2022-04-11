@@ -2,35 +2,39 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package Controller;
+package Controllers.ExpenseControllers;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
  *
  * @author Laura
  */
-public class AddIncomeController implements Initializable
+public class ExpenseController_Modify implements Initializable
 {
 
     @FXML
+    private TextField tfExpenseAmount;
+    @FXML
+    private DatePicker dpExpenseDate;
+    @FXML
+    private ChoiceBox cbExpenseCategory;
+    @FXML
     private Button btnGoBack;
     @FXML
-    private Label lblVal_IncomeDate;
-    @FXML
-    private Label lblVal_IncomeAmount;
-    @FXML
-    private Label lblVal_IncomeEntity;
-    @FXML
     private Button btnSave;
+    @FXML
+    private Button btnDeleteExpense;
+    
 
     /**
      * Initializes the controller class.
@@ -42,14 +46,17 @@ public class AddIncomeController implements Initializable
     }    
 
     @FXML
-    private void goBack(ActionEvent event) throws IOException
-    {   
-        SceneController sc = new SceneController();
-        sc.switchToIncomeScene(event);
+    private void goBack(ActionEvent event)
+    {
     }
 
     @FXML
-    private void saveIncome(ActionEvent event)
+    private void saveExpense(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void deleteExpense(ActionEvent event)
     {
     }
     
