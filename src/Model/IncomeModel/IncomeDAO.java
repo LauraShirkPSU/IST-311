@@ -90,16 +90,16 @@ public class IncomeDAO
         return list;
     } 
     
-    public int addIncomeEntry(Date newDate, Double newAmt, String newEntity) throws SQLException
+    public int addIncomeEntry(String newDate, Double newAmt, String newEntity) throws SQLException
     {
-        Date newIncomeDate = newDate;
+        String newIncomeDate = newDate;
         Double newIncomeAmt = newAmt;
         String newIncomeEntity = newEntity;
         int rowsUpdated = 0;
         
         try 
         {
-            String sqlStatement = "INSERT INTO Income (TransactionDate, TransactionAmount, IncomeEntity) values ('"+ newIncomeDate + "', " + newIncomeAmt + ", " + newIncomeEntity + ");";
+            String sqlStatement = "INSERT INTO Income (TransactionDate, TransactionAmount, IncomeEntity) values ('"+ newIncomeDate + "', " + newIncomeAmt + ", '" + newIncomeEntity + "');";
             PreparedStatement pst = con.prepareStatement(sqlStatement);
                         
             rowsUpdated = pst.executeUpdate();
