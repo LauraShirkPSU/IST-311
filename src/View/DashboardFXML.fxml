@@ -8,7 +8,7 @@
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DashboardController">
    <children>
       <Button fx:id="btnBudgetCategories" layoutX="23.0" layoutY="81.0" mnemonicParsing="false" onAction="#callBudgetCategories" prefHeight="25.0" prefWidth="121.0" text="Budget Categories" />
-      <Label fx:id="label_Welcome" layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="574.0" style="-fx-background-color: lightgrey;">
+      <Label fx:id="label_Welcome" layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="574.0">
          <font>
             <Font size="26.0" />
          </font>
