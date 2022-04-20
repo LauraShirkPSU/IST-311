@@ -78,12 +78,12 @@ public class DashboardController implements Initializable
          catch (SQLException ex) {
             Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
         }
-        label_Welcome.setText("Welcome, " + currentUser.getNickname() + "!");
+        label_Welcome.setText(" Welcome, " + currentUser.getNickname() + "!");
        
         try {
             IncomeDAO incObject = new IncomeDAO();
             label_TotalIncome.setText("Total Income to Date:");
-            label_total_Income_value.setText(df.format(incObject.sumIncome()));
+            label_total_Income_value.setText("$" + df.format(incObject.sumIncome()));
             availableToSpend = availableToSpend + incObject.sumIncome();
         } catch (SQLException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,13 +91,13 @@ public class DashboardController implements Initializable
         try {
             ExpenseDAO expObject = new ExpenseDAO();
             label_TotalExpenses.setText("Total Expenses to Date:");
-            label_total_Expense_value.setText(df.format(expObject.sumExpenses()));
+            label_total_Expense_value.setText("$" + df.format(expObject.sumExpenses()));
             availableToSpend = availableToSpend - expObject.sumExpenses();
         } catch (SQLException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
         }
         label_AvailableToSpend.setText("Funds available to spend:");
-        label_available_to_spend_value.setText(df.format(availableToSpend));
+        label_available_to_spend_value.setText("$" + df.format(availableToSpend));
         
     }    
     
